@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TP1 - Buisson Romain</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  </head>
+  <body>
+    <center>
+      <div class="container">
+        <h1>Je Suis Un Peu En Cours</h1>
+        <div class="col-md-4" style="margin-top: 50px">
+          <input class="form-control mb-1" type="text" id="firstname" placeholder="firstname" />
+          <input class="form-control mb-2" type="text" id="lastname" placeholder="lastname" />
+        </div>
+
+        <button class="btn btn-primary" onclick="register()">Register Student</button>
+        <button class="btn btn-warning" onclick="search()">Search Student</button><br />
+
+          <button class="btn btn-secondary mt-5" onclick="display()">Display all students register</button>
+
+        <div id="list" hidden>
+          <table class="table mt-2">
+            <thead class="thead-light">
+              <tr>
+                <th>firstname</th>
+                <th>lastname</th>
+                <th>insertion date</th>
+              </tr>
+            </thead>
+            <tbody id="studentsList"></tbody>
+          </table>
+        </div>
+      </div>
+    </center>
+    <script src="index.js"></script>
+  </body>
+</html>
