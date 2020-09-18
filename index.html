@@ -9,29 +9,49 @@
   <body>
     <center>
       <div class="container">
-        <h1>Je Suis Un Peu En Cours</h1>
-        <div class="col-md-4" style="margin-top: 50px">
-          <input class="form-control mb-1" type="text" id="firstname" placeholder="firstname" />
-          <input class="form-control mb-2" type="text" id="lastname" placeholder="lastname" />
-        </div>
+        <h1>Je Suis En Classe</h1>
+        <div id="errorDisplay" class="alert alert-danger" role="alert" hidden></div>
+        <!-- start students panel-->
+        <section id="studentPanel">
+          <h3>Student view</h3>
+          <p><a onclick="changeView('admin')" href="#">Administrator view click here</a></p>
+          <div class="col-md-4" style="margin-top: 50px">
+            <input class="form-control mb-1" type="text" id="firstname" placeholder="firstname" />
+            <input class="form-control mb-2" type="text" id="lastname" placeholder="lastname" />
+            <canvas id="myCanvas" width="300%" height="300%" style="border: 1px solid #000000">
+              Your browser does not support the HTML canvas tag.
+            </canvas>
+          </div>
 
-        <button class="btn btn-primary" onclick="register()">Register Student</button>
-        <button class="btn btn-warning" onclick="search()">Search Student</button><br />
+          <button class="btn btn-primary" onclick="register()">To Sign</button>
+        </section>
+        <!-- bottom student panel-->
+
+        <!-- start admin panel-->
+        <section id="adminPanel" hidden>
+          <h3>Administrator view</h3>
+          <p><a onclick="changeView('student')" href="#">Student view click here</a></p>
+          <div class="col-md-4" style="margin-top: 50px">
+            <input class="form-control mb-1" type="text" id="search" placeholder="Search student" />
+          </div>
+          <button class="btn btn-warning" onclick="search()">Search Student</button><br />
 
           <button class="btn btn-secondary mt-5" onclick="display()">Display all students register</button>
 
-        <div id="list" hidden>
-          <table class="table mt-2">
-            <thead class="thead-light">
-              <tr>
-                <th>firstname</th>
-                <th>lastname</th>
-                <th>insertion date</th>
-              </tr>
-            </thead>
-            <tbody id="studentsList"></tbody>
-          </table>
-        </div>
+          <div id="list" hidden>
+            <table class="table mt-2">
+              <thead class="thead-light">
+                <tr>
+                  <th>firstname</th>
+                  <th>lastname</th>
+                  <th>insertion date</th>
+                </tr>
+              </thead>
+              <tbody id="studentsList"></tbody>
+            </table>
+          </div>
+        </section>
+        <!-- bottom admin panel-->
       </div>
     </center>
     <script src="index.js"></script>
