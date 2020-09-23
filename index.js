@@ -1,3 +1,8 @@
+let signaturePad = new SignaturePad(document.getElementById("signature-pad"), {
+  backgroundColor: "rgba(255, 255, 255, 0)",
+  penColor: "rgb(0, 0, 0)",
+});
+
 let isDisplay = false;
 
 if (!localStorage.registerArray) {
@@ -23,6 +28,10 @@ function register() {
   if (isDisplay) {
     display();
   }
+  var data = signaturePad.toDataURL("image/png");
+
+  // Send data to server instead...
+  window.open(data);
 }
 
 function display(isSearch = false, firstname = null, lastname = null) {
