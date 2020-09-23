@@ -2,6 +2,8 @@ let signaturePad = new SignaturePad(document.getElementById("signature-pad"), {
   backgroundColor: "rgba(255, 255, 255, 0)",
   penColor: "rgb(0, 0, 0)",
 });
+let signatureAdminView = new SignaturePad(document.getElementById("signatureAdminView"));
+signatureAdminView.off()
 
 let isDisplay = false;
 
@@ -16,22 +18,21 @@ function register() {
     return error("Your firstname or lastname is invalid");
   } else if (fn.value.length < 3 || ln.value.length < 3) {
     return error("Your firstname or lastname is too short");
+  } else if(!signaturePad.toData().length) {
+    return error("You must sign")
   }
+
   registerArray.push({
     firstname: fn.value,
     lastname: ln.value,
+    dataSign: signaturePad.toData(),
     dateInsert: new Date().toLocaleString(),
   });
   localStorage.registerArray = JSON.stringify(registerArray);
+
   fn.value = "";
   ln.value = "";
-  if (isDisplay) {
-    display();
-  }
-  var data = signaturePad.toDataURL("image/png");
-
-  // Send data to server instead...
-  window.open(data);
+  signaturePad.clear();
 }
 
 function display(isSearch = false, name = null) {
@@ -52,7 +53,8 @@ function display(isSearch = false, name = null) {
     let element = document.createElement("tr");
     element.innerHTML = `<td>${displayArray[i].firstname}</td>
         <td>${displayArray[i].lastname}</td>
-        <td>${displayArray[i].dateInsert}</td>`;
+        <td>${displayArray[i].dateInsert}</td>
+        <td><button type="button" class="btn btn-warning" onclick="viewSign(${i})" data-toggle="modal" data-target="#modalSign">view</button></td>`;
     div.appendChild(element);
     i++;
   }
@@ -110,4 +112,8 @@ function error(message) {
   setTimeout(() => {
     errorAtt.hidden = true;
   }, 5000);
+}
+
+function viewSign(id) {
+  signatureAdminView.fromData(JSON.parse(localStorage.registerArray)[id].dataSign)
 }

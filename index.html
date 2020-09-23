@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TP1 - Buisson Romain</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
   </head>
   <body>
     <header>
@@ -24,11 +25,10 @@
           <div class="col-md-4" style="margin-top: 50px">
             <input class="form-control mb-1" type="text" id="firstname" placeholder="firstname" />
             <input class="form-control mb-2" type="text" id="lastname" placeholder="lastname" />
-            <canvas id="signature-pad" width="300%" height="300%" style="border: 1px solid #000000">
-              Your browser does not support the HTML canvas tag.
-            </canvas>
+            <canvas id="signature-pad" width="300%" height="300%" style="border: 1px solid #000000"> Your browser does not support the HTML canvas tag. </canvas>
           </div>
 
+          <button class="btn btn-secondary" onclick="signaturePad.clear()">clear</button>
           <button class="btn btn-primary" onclick="register()">To Sign</button>
         </section>
         <!-- bottom student panel-->
@@ -51,6 +51,7 @@
                   <th>firstname</th>
                   <th>lastname</th>
                   <th>insertion date</th>
+                  <th>signature</th>
                 </tr>
               </thead>
               <tbody id="studentsList"></tbody>
@@ -61,7 +62,30 @@
       </div>
     </center>
 
-    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
-    <script src="index.js"></script>
+    <!-- top ModalSign -->
+    <div class="modal fade" id="modalSign" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Student Signature</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <center><canvas id="signatureAdminView" width="300%" height="300%" style="border: 1px solid #000000"> Your browser does not support the HTML canvas tag. </canvas></center>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- bottom ModalSign -->
+
+    <script src="js/signature_pad.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
 </html>
