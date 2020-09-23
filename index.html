@@ -24,7 +24,9 @@
           <div class="col-md-4" style="margin-top: 50px">
             <input class="form-control mb-1" type="text" id="firstname" placeholder="firstname" />
             <input class="form-control mb-2" type="text" id="lastname" placeholder="lastname" />
-            <canvas id="myCanvas" width="300%" height="300%" style="border: 1px solid #000000"> Your browser does not support the HTML canvas tag. </canvas>
+            <canvas id="signature-pad" width="300%" height="300%" style="border: 1px solid #000000">
+              Your browser does not support the HTML canvas tag.
+            </canvas>
           </div>
 
           <button class="btn btn-primary" onclick="register()">To Sign</button>
@@ -58,6 +60,8 @@
         <!-- bottom admin panel-->
       </div>
     </center>
+
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
     <script src="index.js"></script>
   </body>
 </html>
