@@ -38,13 +38,12 @@
           <h3>Administrator view</h3>
           <p><a onclick="changeView('student')" href="#">Student view click here</a></p>
           <div class="col-md-4" style="margin-top: 50px">
-            <input class="form-control mb-1" type="text" id="search" placeholder="Search student" />
+            <input class="form-control mb-1" oninput="search()" type="text" id="search" placeholder="Search student" />
           </div>
-          <button class="btn btn-warning" onclick="search()">Search Student</button><br />
 
-          <button class="btn btn-secondary mt-5" onclick="display()">Display all students register</button>
+          <button class="btn btn-danger mt-5" onclick="resetStudentsList()">Reset all student signature</button>
 
-          <div id="list" hidden>
+          <div id="list">
             <table class="table mt-2">
               <thead class="thead-light">
                 <tr>

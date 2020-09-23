@@ -3,9 +3,7 @@ let signaturePad = new SignaturePad(document.getElementById("signature-pad"), {
   penColor: "rgb(0, 0, 0)",
 });
 let signatureAdminView = new SignaturePad(document.getElementById("signatureAdminView"));
-signatureAdminView.off()
-
-let isDisplay = false;
+signatureAdminView.off();
 
 if (!localStorage.registerArray) {
   localStorage.registerArray = "[]";
@@ -18,11 +16,12 @@ function register() {
     return error("Your firstname or lastname is invalid");
   } else if (fn.value.length < 3 || ln.value.length < 3) {
     return error("Your firstname or lastname is too short");
-  } else if(!signaturePad.toData().length) {
-    return error("You must sign")
+  } else if (!signaturePad.toData().length) {
+    return error("You must sign");
   }
 
   registerArray.push({
+    id: registerArray.length,
     firstname: fn.value,
     lastname: ln.value,
     dataSign: signaturePad.toData(),
@@ -36,14 +35,14 @@ function register() {
 }
 
 function display(isSearch = false, name = null) {
-  isDisplay = true;
-  document.getElementById("list").hidden = false;
   const div = document.getElementById("studentsList");
   div.innerHTML = "";
 
   let displayArray = [];
   if (isSearch) {
     displayArray = searchStudent(name);
+  } else if (!localStorage.registerArray || !localStorage.registerArray.length) {
+    return false;
   } else {
     displayArray = JSON.parse(localStorage.registerArray);
   }
@@ -54,7 +53,7 @@ function display(isSearch = false, name = null) {
     element.innerHTML = `<td>${displayArray[i].firstname}</td>
         <td>${displayArray[i].lastname}</td>
         <td>${displayArray[i].dateInsert}</td>
-        <td><button type="button" class="btn btn-warning" onclick="viewSign(${i})" data-toggle="modal" data-target="#modalSign">view</button></td>`;
+        <td><button type="button" class="btn btn-warning" onclick="viewSign(${displayArray[i].id})" data-toggle="modal" data-target="#modalSign">view</button></td>`;
     div.appendChild(element);
     i++;
   }
@@ -66,26 +65,22 @@ function search() {
 }
 
 function searchStudent(name) {
+  let res = [];
   let i = 0;
-  while (i < localStorage.registerArray.length) {
-    if (localStorage.registerArray[i].firstname.includes(name) && localStorage.registerArray[i].lastname.includes(name)) {
-      return [
-        {
-          firstname: localStorage.registerArray[i].firstname,
-          lastname: localStorage.registerArray[i].lastname,
-          dateInsert: localStorage.registerArray[i].dateInsert,
-        },
-      ];
+  const searchArray = JSON.parse(localStorage.registerArray);
+  while (i < searchArray.length) {
+    if (searchArray[i].firstname.includes(name) || searchArray[i].lastname.includes(name)) {
+      res.push({
+        id: searchArray[i].id,
+        firstname: searchArray[i].firstname,
+        lastname: searchArray[i].lastname,
+        dataSign: searchArray[i].dataSign,
+        dateInsert: searchArray[i].dateInsert,
+      });
     }
     i++;
   }
-  return [
-    {
-      firstname: "unkown",
-      lastname: "unkown",
-      dateInsert: "unkown",
-    },
-  ];
+  return res;
 }
 
 function changeView(view) {
@@ -93,6 +88,7 @@ function changeView(view) {
     case "admin":
       document.getElementById("adminPanel").hidden = false;
       document.getElementById("studentPanel").hidden = true;
+      display();
       break;
     case "student":
       document.getElementById("adminPanel").hidden = true;
@@ -115,5 +111,10 @@ function error(message) {
 }
 
 function viewSign(id) {
-  signatureAdminView.fromData(JSON.parse(localStorage.registerArray)[id].dataSign)
+  signatureAdminView.fromData(JSON.parse(localStorage.registerArray)[id].dataSign);
+}
+
+function resetStudentsList() {
+  localStorage.clear();
+  location.reload();
 }
