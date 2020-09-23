@@ -7,9 +7,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
   </head>
   <body>
+    <header>
+      <div class="navbar navbar-dark bg-warning shadow-sm mb-5">
+        <div class="container d-flex justify-content-between text-white text-center mr-auto">
+          <h1 class="ml-auto mr-auto">Je Suis En Classe</h1>
+        </div>
+      </div>
+    </header>
     <center>
       <div class="container">
-        <h1>Je Suis En Classe</h1>
         <div id="errorDisplay" class="alert alert-danger" role="alert" hidden></div>
         <!-- start students panel-->
         <section id="studentPanel">
@@ -18,9 +24,7 @@
           <div class="col-md-4" style="margin-top: 50px">
             <input class="form-control mb-1" type="text" id="firstname" placeholder="firstname" />
             <input class="form-control mb-2" type="text" id="lastname" placeholder="lastname" />
-            <canvas id="myCanvas" width="300%" height="300%" style="border: 1px solid #000000">
-              Your browser does not support the HTML canvas tag.
-            </canvas>
+            <canvas id="myCanvas" width="300%" height="300%" style="border: 1px solid #000000"> Your browser does not support the HTML canvas tag. </canvas>
           </div>
 
           <button class="btn btn-primary" onclick="register()">To Sign</button>

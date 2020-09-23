@@ -1,7 +1,7 @@
 let isDisplay = false;
 
 if (!localStorage.registerArray) {
-  localStorage.registerArray = [];
+  localStorage.registerArray = "[]";
 }
 let registerArray = JSON.parse(localStorage.registerArray) || [];
 function register() {
@@ -25,7 +25,7 @@ function register() {
   }
 }
 
-function display(isSearch = false, firstname = null, lastname = null) {
+function display(isSearch = false, name = null) {
   isDisplay = true;
   document.getElementById("list").hidden = false;
   const div = document.getElementById("studentsList");
@@ -33,9 +33,9 @@ function display(isSearch = false, firstname = null, lastname = null) {
 
   let displayArray = [];
   if (isSearch) {
-    displayArray = searchStudent(firstname, lastname);
+    displayArray = searchStudent(name);
   } else {
-    displayArray = localStorage.registerArray;
+    displayArray = JSON.parse(localStorage.registerArray);
   }
 
   let i = 0;
@@ -50,15 +50,14 @@ function display(isSearch = false, firstname = null, lastname = null) {
 }
 
 function search() {
-  const firstname = document.getElementById("firstname").value;
-  const lastname = document.getElementById("lastname").value;
-  display(true, firstname, lastname);
+  const name = document.getElementById("search").value;
+  display(true, name);
 }
 
-function searchStudent(firstname, lastname) {
+function searchStudent(name) {
   let i = 0;
   while (i < localStorage.registerArray.length) {
-    if (localStorage.registerArray[i].firstname == firstname && localStorage.registerArray[i].lastname == lastname) {
+    if (localStorage.registerArray[i].firstname.includes(name) && localStorage.registerArray[i].lastname.includes(name)) {
       return [
         {
           firstname: localStorage.registerArray[i].firstname,
