@@ -1,3 +1,22 @@
+//init IndexDB
+
+let request = indexedDB.open("Students", 2);
+request.onerror = function (event) {
+  console.log("Why didn't you allow my web app to use IndexedDB?!");
+};
+
+request.onupgradeneeded = function (event) {
+  let db = event.target.result;
+
+  let objectStore = db.createObjectStore("students", { keyPath: "id" });
+
+  objectStore.createIndex("firstname", "firstname", { unique: false });
+  objectStore.createIndex("lastname", "lastname", { unique: false });
+  objectStore.createIndex("dataSign", "dataSign", { unique: false });
+  objectStore.createIndex("dateInsert", "dataInsert", { unique: false });
+};
+
+// script
 let signaturePad = new SignaturePad(document.getElementById("signature-pad"), {
   backgroundColor: "rgba(255, 255, 255, 0)",
   penColor: "rgb(0, 0, 0)",
@@ -28,6 +47,9 @@ function register() {
     dateInsert: new Date().toLocaleString(),
   });
   localStorage.registerArray = JSON.stringify(registerArray);
+  //new version
+  addStudentInDb(registerArray.length,fn.value,ln.value,signaturePad.toData())
+  // ----------
 
   fn.value = "";
   ln.value = "";
@@ -117,4 +139,19 @@ function viewSign(id) {
 function resetStudentsList() {
   localStorage.clear();
   location.reload();
+}
+
+// new function for indexedDB :
+
+function addStudentInDb(id,firstname,lastname,dataSign) {
+  db = request.result;
+  var tx = db.transaction("students", "readwrite");
+  var store = tx.objectStore("students");
+  store.put({
+    id,
+    firstname,
+    lastname,
+    dataSign,
+    dateInsert: new Date().toLocaleString(),
+  });
 }
